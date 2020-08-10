@@ -150,5 +150,103 @@ console.log(parseInt(test));
 //данный метод трансформирует строку в число не обрезая число до десятичной запятой.
 console.log(parseFloat(test));
 
+//CAllBAck ФУНКЦИИ
+
+function first() {
+    //Do something
+    setTimeout(function() {
+        console.log(1);
+    }, 500);
+}
+
+function second() {
+    console.log(2);
+}
+
+first();
+second();
+
+function learnJS(lang, callback){
+    console.log(`Я учу: ${lang}`);
+    callback();
+}
+
+function done() {
+    console.log('Я прошел этот урок!');
+}
+
+learnJS('JavaScript', done);
+
+// Объекты, деструктуризация объектов
+
+// const options = {
+//     name: 'test',
+//     width: 1024,
+//     height: 1024,
+//     colors: {
+//         border: 'black',
+//         bg: 'red'
+//     }
+// };
+
+// console.log(options.name);   //Использование конкретного свойства (ключ: значение) в объекте
+
+// delete options.name;   // Удаление свойства из объекта
+
+// console.log(options);
+
+// for (let key in options) {   // ЦИкл FOR IN 
+//     console.log(`Свойства ${key} имеет значение ${options[key]}`);
+// }
+
+// let counter = 0; // Счетчик
 
 
+// for (let key in options) {   // ЦИкл FOR IN c перебором ключей внутри ключа (color) который в свою очередь является объектом
+//     if (typeof(options[key]) === 'object') {
+//         for (let i in options[key]){
+//             console.log(`Свойства ${i} имеет значение ${options[key][i]}`);
+//             // counter++; //Счетчик + 1 считает в банном случае количество свойств в объекте
+//         }
+//     } else {
+//         console.log(`Свойства ${key} имеет значение ${options[key]}`);
+//         // counter++; //Счетчик + 1
+//     }
+//     counter++; // Отдельный счетчик для первичных свойтв не учитывая свойства обектов в обхъекте
+    
+// }
+
+// // for (let key in options) { //Отдельный счетчик для первичных свойтв не учитывая свойства обектов в обхъекте
+// //     counter++;
+// // }
+// console.log(counter);
+
+
+//МЕДОТЫ ОБЪЕКТОВ (мтеод получения ключей объекта)
+const options = {
+    name: 'test',
+    width: 1024,
+    height: 1024,
+    colors: {
+        border: 'black',
+        bg: 'red'
+    },
+    maketest: function() { //Метод, котоырй мы создаем (Самодельный)
+        console.log("Test");
+    }
+};
+
+options.maketest(); //Вызов самодельного метода
+
+
+//ДЕструктуризация объекта
+
+const{border, bg} = options.colors; //вытаскиваем ключи из объекта в объекта в отдельные переменные
+console.log(border);
+
+//Получение массива со всеми ключами
+// console.log(Object.keys(options));
+
+//Получение длины массива
+
+console.log(Object.keys(options).length - 1 + Object.keys(options.colors).length);
