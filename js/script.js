@@ -26,8 +26,6 @@
 // // Оператор switch как замена if / else работает только с точным сравнением по значению, тоесть не может
 // // проверять условия больше или меньше, только на предмет равенства.
 
-
-
 // switch (50) {
 //     case 49:
 //         console.log('Неверно');
@@ -116,8 +114,8 @@
 
 // МЕТОДЫ И СВОЙСТВА СТРОК И ЧИСЕЛ
 
-const str = "teSt";
-const arr = [1, 2, 4];
+// const str = "teSt";
+// const arr = [1, 2, 4];
 
 // console.log(str[2] = "d");
 // console.log(str.toUpperCase());
@@ -252,3 +250,196 @@ console.log(border);
 //Получение длины массива
 
 console.log(Object.keys(options).length - 1 + Object.keys(options.colors).length);
+
+
+// Массивы и псевдомассивы
+
+const arr = [1, 82, 13, 36, 8];
+
+arr.sort(compareNum); // Сортировка элементов массива, работает над строками в случае с числами сортирует числа
+// по возрастанию не числовому а алфавитному данный массив будет отсортирован следующим образом - [1, 13, 36, 8, 82]
+console.log(arr);
+
+function compareNum(a, b) { //Функция для сортировки цифровых значений массива по возрастанию
+    return a - b;
+}
+arr.forEach(function(item, i, arr) {  // Метод forEach для более расширенного перебора элементов массива
+    console.log(`${i}: ${item} внутри массива ${arr}`);
+});
+
+// arr.pop();   // Метод массива удаляет последний элемент из массива
+// arr.push(23); // метод массива добавляет желемент в конец массива
+// console.log(arr);
+
+// for (let i = 0; i < arr.length; i++){ // цикл для перебора элементов массива по индексам
+//     console.log(arr[i]);
+// }
+
+for (let value of arr){ // тот же цикл для перербора, только с использованием for of
+    console.log(value); // Остановить этот цикл с помощью break и continue не получиться, тут  они не сработают
+}
+
+
+
+const str = prompt("", "");
+const products = str.split(", "); // Получение массива из отдельных элементов через запятую
+products.sort(); //Сортировка элементов внутри массива, 
+console.log(products.join("! ")); // Предоставление массива ввиде строки с разделителем "!" в данном случае
+
+
+// arr[99] = 0; //для демонстрации нарушения порядка в массиве
+// console.log(arr.length);
+// console.log(arr);
+
+//Передача по ссылке или по значению. Spread оператор
+let a = 5,
+    b = a;
+
+b = b + 5;
+
+console.log(b);
+console.log(a);
+
+const obj = {
+    a: 5,
+    b: 1
+};
+
+// const copy = obj; // Передача по ссылке. В таком случае модифицируя копию объекта, модифицируется и сам объект
+
+// copy.a = 10;
+
+// console.log(copy);
+// console.log(obj);
+
+function copy(mainObj) { //ФУнкция для клонирования объекта по значению, при модификации клона, клонируемый объект не изменяется
+    let objCopy = {};
+
+    let key;
+    for (key in mainObj) {
+        objCopy[key] = mainObj[key];
+    }
+
+    return objCopy;
+}
+
+const numbers = {
+    a: 2,
+    b: 5,
+    c: {
+        x: 7,
+        y: 4
+    }
+};
+
+const newNumbers = copy(numbers);
+
+newNumbers.a = 10;
+newNumbers.c.x = 10;
+
+console.log(newNumbers);
+console.log(numbers);
+
+const add = {
+    d: 17,
+    e: 20
+};
+
+const clone = Object.assign({}, add);
+
+clone.d = 20;
+
+console.log(add);
+console.log(clone);
+
+const oldArray = ['a', 'b', 'c'];
+const newArray = oldArray.slice(); // Метод для клонирования массива
+
+newArray[1] = 'sdasdfdjs';
+
+console.log(oldArray);
+console.log(newArray);
+
+// Spread Оператор
+
+const video = ['youtube', 'vimeo', 'rutube'],
+      blogs = ['wordpress', 'livejournal', 'blogger'],
+      internet = [...video, ...blogs, 'vk', 'facebook']; // (оператор разворота)
+
+console.log(internet);
+
+function log(a, b, c) {
+    console.log(a);
+    console.log(b);
+    console.log(c);
+}
+
+const numm = [2, 5, 7];
+
+log(...numm);
+
+const array = ["a", "b"];
+
+const newArrray = [...array]; // Клонирование массива
+array[0] = 'dasdsad';
+console.log(newArrray);
+console.log(array);
+
+const q = {
+    one: 1,
+    two: 2
+};
+
+const newObj = {...q}; //Клонирование объекта
+
+newObj.one = 23;
+console.log(newObj);
+console.log(q);
+
+// Динамическая Типизация
+
+// To String
+ 
+console.log(typeof(String(null))); //Первый способ - устаревшиый
+console.log(typeof(String(4))); //Первый способ
+
+// Конкатенация
+
+console.log(typeof(null + '')); // Сложение со строкой всегда дает строку
+
+const nummm = 5;
+
+console.log("https://vk.com/catalog/" + nummm);
+
+const fontsize = 26 + 'px';
+
+// To Number
+
+console.log(typeof(Number('4'))); // ПЕрвый способо - устаревший
+
+console.log(typeof(+'5')); // Превращение строки в число с помощью унарного плюса
+
+console.log(typeof(parseInt("15px", 10)));
+
+let answ = +prompt("HEllo", "");
+
+// To Boolean
+
+// 0, '', null, undefined, NaN; - Всегда False
+
+let switcher = null; // Первый вариант
+
+if (switcher) {
+    console.log('Working...')
+}
+
+switcher = 1;
+
+if (switcher) {
+    console.log('Working...')
+}
+
+console.log(typeof(Boolean('4'))); // Второй способ
+console.log(Boolean(0));
+
+console.log(typeof(!!"44444")); //Третий способ
