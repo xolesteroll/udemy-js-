@@ -157,7 +157,7 @@ console.log(parseFloat(test));
 function first() {
     //Do something
     setTimeout(function() {
-        console.log(1);
+        console.log(1); \\\\\\\\\\\\\\\\\\\\\\\
     }, 500);
 }
 
