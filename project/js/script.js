@@ -25,53 +25,97 @@ document.addEventListener('DOMContentLoaded', () => {
         "Одержимость",
         "Скотт Пилигрим против..."
     ]
-},
-    adv = document.querySelectorAll(".promo__adv img"),
-    poster = document.querySelector(".promo__bg"),
-    genre = poster.querySelector(".promo__genre"),
-    movieList = document.querySelector(".promo__interactive-list"),
-    addForm = document.querySelector("form.add"),
-    addInput = addForm.querySelector(".adding__input"),
-    checkbox = addForm.querySelector("[type='checkbox']");
+    },
+        adv = document.querySelectorAll(".promo__adv img"),
+        poster = document.querySelector(".promo__bg"),
+        genre = poster.querySelector(".promo__genre"),
+        movieList = document.querySelector(".promo__interactive-list"),
+        addForm = document.querySelector("form.add"),
+        addInput = addForm.querySelector(".adding__input"),
+        checkbox = addForm.querySelector("[type='checkbox']");
 
 
-addForm.addEventListener("submit", (event) => {
-    event.preventDefault();
+    addForm.addEventListener("submit", (event) => {
+        event.preventDefault();
 
-    const newFilm = addInput.value;
-    const favorite = checkbox.checked;
+        let newFilm = addInput.value;
+        const favorite = checkbox.checked;
 
-    movieDB.movies.push(newFilm);
-    movieDB.movies.sort();
-});
+        if (newFilm) {
 
+            if (newFilm.length > 21) {
+                newFilm = `${newFilm.substring(0, 22)}...`;
+            }
 
+            if (favorite) {
+                console.log("Добавляем Любимый фильм");
+            }
 
-adv.forEach(item => { //Цикл для удаления всех желементов по селектору с callback функцией
-    item.remove();
-});
+            movieDB.movies.push(newFilm);
+            sortArr(movieDB.movies);
 
+            createMovieList(movieDB.movies, movieList);
+        }
+
+        
+
+        event.target.reset();
+    });
+
+    const deleteAdv = (arr) => {
+        arr.forEach(item => { //Цикл для удаления всех желементов по селектору с callback функцией
+            item.remove();
+        });
+    
+    };
+
+    
 // adv.forEach(function (item) { //Цикл для удаления всех желементов по селектору с обычной функцией
 //     item.remove();
 // });
 
-genre.textContent = "драма";
-poster.style.backgroundImage = "url(img/bg.jpg)";
 
-movieDB.movies.sort();
+    const makeChanges = () => {
+        genre.textContent = "драма";
 
-function createMovieList(films, parent) { 
-    parent.innerHTML = "";
+        poster.style.backgroundImage = "url(img/bg.jpg)";
+    };
 
-    films.forEach((film, i) => {
-        parent.innerHTML += `
-            <li class="promo__interactive-item">${i + 1} ${film}
-                <div class="delete"></div>
-            </li>
-        `;
-    });
-}
+    
 
+    const sortArr = (arr) => {
+        arr.sort();
+    };
+    
+    
 
+    function createMovieList(films, parent) { 
+        parent.innerHTML = "";
+
+        sortArr(films);
+
+        films.forEach((film, i) => {
+            parent.innerHTML += `
+                <li class="promo__interactive-item">${i + 1} ${film}
+                    <div class="delete"></div>
+                </li>
+            `;
+        });
+
+        document.querySelectorAll(".delete").forEach((btn, i) => {
+            btn.addEventListener("click", () => {
+                btn.parentElement.remove();
+                movieDB.movies.splice(i, 1);
+                createMovieList(films, parent);
+            });
+        });
+
+    }
+
+    deleteAdv(adv);
+    makeChanges();
+    
+    createMovieList(movieDB.movies, movieList);
+    
 });
 
