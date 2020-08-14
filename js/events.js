@@ -31,8 +31,8 @@ btn[0].addEventListener("click", (e) => {
 //     e.target.remove();
 // });
 
-btn[1].addEventListener("click", deleteElement);
-overlay.addEventListener("click", deleteElement);
+// btn[1].addEventListener("click", deleteElement);
+// overlay.addEventListener("click", deleteElement);
 
 
 const link = document.querySelector("a");
@@ -43,6 +43,6 @@ link.addEventListener("click", function(event) {
     console.log(event.target);
 });
 
-btn.forEach(btn => {
-    btn.addEventListener('click', deleteElement); // Цикл на перебор всех жэелементов псевдомассива
-}); // 5
+btn.forEach(item => {
+    item.addEventListener('click', deleteElement, {once: true}); // Цикл на перебор всех жэелементов псевдомассива
+}); //
